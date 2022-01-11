@@ -1,0 +1,1 @@
+{"db": {"c\u1ea7u th\u1ee7": null, "previous_intent": null, "rule": null}, "history": [{"node": "NaiveBayes", "value": {"p": 0.6536735355538148, "value": "tra c\u1ee9u lu\u1eadt", "text": "xin ch\u00e0o ?"}}], "user_input": "xin ch\u00e0o ?", "verbose": 1, "answer": "Xin l\u1ed7i kh\u00f4ng nh\u1eadn ra c\u00e2u h\u1ecfi c\u1ee7a b\u1ea1n"}
