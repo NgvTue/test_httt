@@ -17,67 +17,67 @@ def clean_text(sent):
 
 
 
-with open("/home/tuenguyen/speech/httt/datasets/training.json","r") as f:
-    training_set = json.load(f)
+# with open("/home/tuenguyen/speech/httt/datasets/training.json","r") as f:
+#     training_set = json.load(f)
 
-    train = []
-    for key in training_set:
-        for sample in training_set[key]:
-            train.append(
-                {
-                    'label':key,
-                    'sentence':sample[0]['value']
-                }
-            )
-    train = pd.DataFrame(train)
-    train.label = train.label.map({
-        'tra cứu luật':0,
-        'tình huống':1,
-        'tra cứu cầu thủ':2,
-        'tra cứu bảng xếp':3,
-        'kết thúc trò chuyện':4
-    })
-    train = train.sample(frac=1).reset_index(drop=True)
+#     train = []
+#     for key in training_set:
+#         for sample in training_set[key]:
+#             train.append(
+#                 {
+#                     'label':key,
+#                     'sentence':sample[0]['value']
+#                 }
+#             )
+#     train = pd.DataFrame(train)
+#     train.label = train.label.map({
+#         'tra cứu luật':0,
+#         'tình huống':1,
+#         'tra cứu cầu thủ':2,
+#         'tra cứu bảng xếp':3,
+#         'kết thúc trò chuyện':4
+#     })
+#     train = train.sample(frac=1).reset_index(drop=True)
 
-    print(train.head(2))
-with open("/home/tuenguyen/speech/httt/datasets/testing.json","r") as f:
-    testing_set = json.load(f)
+#     print(train.head(2))
+# with open("/home/tuenguyen/speech/httt/datasets/testing.json","r") as f:
+#     testing_set = json.load(f)
 
-    test = []
-    for key in testing_set:
-        for sample in testing_set[key]:
-            test.append(
-                {
-                    'label':key,
-                    'sentence':sample[0]['value']
-                }
-            )
-    test = pd.DataFrame(test)
-    test.label = test.label.map({
-        'tra cứu luật':0,
-        'tình huống':1,
-        'tra cứu cầu thủ':2,
-        'tra cứu bảng xếp':3,
-        'kết thúc trò chuyện':4
-    })
-    test = test.sample(frac=1).reset_index(drop=True)
+#     test = []
+#     for key in testing_set:
+#         for sample in testing_set[key]:
+#             test.append(
+#                 {
+#                     'label':key,
+#                     'sentence':sample[0]['value']
+#                 }
+#             )
+#     test = pd.DataFrame(test)
+#     test.label = test.label.map({
+#         'tra cứu luật':0,
+#         'tình huống':1,
+#         'tra cứu cầu thủ':2,
+#         'tra cứu bảng xếp':3,
+#         'kết thúc trò chuyện':4
+#     })
+#     test = test.sample(frac=1).reset_index(drop=True)
 
-    print(test.head(2))
+#     print(test.head(2))
 
 
 
-corpus = train.sentence.apply(clean_text).values
-vectorizer = CountVectorizer()
-X_train = vectorizer.fit_transform(np.asarray(corpus)).todense()
-X_test  =vectorizer.transform( np.asarray(test.sentence.apply(clean_text).values)).todense()
-X_test = np.asarray(X_test)
+# corpus = train.sentence.apply(clean_text).values
+# vectorizer = CountVectorizer()
+# X_train = vectorizer.fit_transform(np.asarray(corpus)).todense()
+# X_test  =vectorizer.transform( np.asarray(test.sentence.apply(clean_text).values)).todense()
+# X_test = np.asarray(X_test)
 
-clf = CategoricalNB()
-clf.fit(X_train, train.label.values)
-pred = clf.predict(X_test)
-sc= clf.score(X_test, test.label.values)
+# clf = CategoricalNB()
+# clf.fit(X_train, train.label.values)
+# pred = clf.predict(X_test)
+# sc= clf.score(X_test, test.label.values)
 
-print(f"Scoring in testset  = {sc}")
+# print(f"Scoring in testset  = {sc}")
 
 
 
@@ -89,9 +89,16 @@ def predict(corpus_t):
         corpus_test = [corpus_t]
     else:
         corpus_test=[i for i in corpus_t]
+    
     clean_corpus = np.asarray([clean_text(i) for i in corpus_test])
+    print(clean_corpus)
+
     vector_corpus = np.asarray(vectorizer.transform(clean_corpus).todense())
+    
+    vector_corpus = np.where(vector_corpus>1,1,vector_corpus)
+    
     predict_corpus = clf.predict(vector_corpus)
+
     prob = clf.predict_proba(vector_corpus)
     prob = np.max(prob,-1)
     predict_corpus = [

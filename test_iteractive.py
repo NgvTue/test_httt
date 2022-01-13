@@ -8,28 +8,43 @@ context ={
     'db':{'cầu thủ':None, 'previous_intent':None, 'previous_rule':None},
     'history':[],
     'user_input':'Cho mình thông tin luật sân bóng và việt vị nào?',
-    'verbose':1
+    'verbose':1,
+    'follow_node':None
 }
 
 context = first_node.excute(context)
+
+
+
 print("-"*100)
 print("Answer=", context['answer'])
 print("-"*100)
 context['user_input']='sân bóng ý bạn'
-
+print(context,"dsadsadsa")
 context = first_node.excute(context)
 print("-"*100)
 print("Answer=", context['answer'])
 print("-"*100)
+context['user_input']='Cho mình hỏi ngày sinh của Công Phượng với mình'
 
+context = first_node.excute(context)
+# print("-"*100)
+print("Answer=", context['answer'])
+print("-"*100)
+print("-"*100)
+context['user_input']='Cho mình hỏi về trang phục thi đấu với'
 
+context = first_node.excute(context)
+context['user_input']='Vậy cho mình hỏi tình huống "cầu thủ đội bạn di chuyển chèn đối phương trong tình huống phạt góc" có phạm lỗi không?'
+context = first_node.excute(context)
+print("ne")
 import json
 
 
 db = {
     'Sân thi đấu':{
     'text':"""
-    Sân bóng đá là khoảng không gian hình chữ nhật nơi các cầu thủ thi đấu với nhau. Chúng có chiều dài là 105m và chiều rộng 68m. Hai đường giới hạn dài hơn theo chiều dọc gọi là đường biên dọc.
+    Sân bóng đá là khoảng không gian hình chữ nhật nơi các cầu thủ thi đấu với nhau. Chúng có chiều dài là trong khoảng 100-110m và chiều rộng trong khoảng 64-75m. Hai đường giới hạn dài hơn theo chiều dọc gọi là đường biên dọc.
     Hai đường ngắn hơn gọi là đường biên ngang. Đường thẳng kẻ suốt chiều ngang ở giữa chia sân thành 2 phần bằng nhau gọi là đường giữa sân.
     Mỗi đội sẽ bảo vệ một nửa phần sân của mình và tấn công vào phần sân đối thủ. Một vòng tròn được kẻ vòng quanh có bán kính 9m15 gọi là vòng tròn trung tâm. Tại tâm điểm của sân bóng là điểm phát bóng giữa sân.
     Ở giữa 2 đường đường biên ngang cuối 2 đầu sân là khu cầu môn. Đây là khu vực có khung thành với chiều ngang 7,32m và cao 2,44m. Bao quanh khung thành là vùng cấm địa hay còn gọi là khu vực 16m50. Đây là phạm vi thủ môn được dùng tay để bắt bóng.
