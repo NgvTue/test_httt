@@ -36,7 +36,8 @@ def index():
     db = get_db()
     if  request.method == 'GET':
         user_id = session.get('user_id',-1) # get user
-        context = copy.deepcopy(context_user.get(user_id,init_context)) # get context
+        context_user[user_id] = copy.deepcopy(init_context)
+        context = copy.deepcopy(context_user.get(user_id,copy.deepcopy(init_context))) # get context
         logging.info(context)
         
         return render_template('chat/main.html', context=context)

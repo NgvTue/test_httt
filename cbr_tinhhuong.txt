@@ -1,3 +1,4 @@
 cầu thủ đang đứng trên toàn bộ đội bạn ngoại trừ thủ môn có bị tính việt vị không
 cầu thủ nhận đường truyền từ đội bạn khi đang đứng trên toàn bộ cầu thủ đối phương trừ việt vị
 cầu thủ đứng trên toàn bộ cầu thủ đối phương nhận đường truyền từ đồng đội có bị việt vị không?
+cầu thủ đội bạn đứng trên hoàn toàn cầu thủ và nhận đường truyền từ đồng đội có phạm lỗi không

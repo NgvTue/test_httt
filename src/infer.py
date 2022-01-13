@@ -64,7 +64,6 @@ class NaiveBayesNode(Node):
             )
             if value['value'] == 'tra cứu luật':
                 context['previous_intent'] = 'tra cứu luật'
-                  
                 redirect_node = RuleNode('ruleNode')
             elif value['value'] == 'tình huống':
                 context['previous_intent'] = 'tình huống'
@@ -80,6 +79,50 @@ class NaiveBayesNode(Node):
                 redirect_node = RankingNode("ranking node")
                 context['previous_intent']='tra cứu bảng xếp hạng'
         return redirect_node.excute(context)
+class RankingNode(Node):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+    def find_champ(self, sentence):
+        db = {
+            "vleage:2021":["trong nước" , "vleague","v1","v-leaguage"],
+            "nghanh":["ngoại hạng anh", "premier league","PRL","nha"],
+            "c1":["champions league","c1","châu âu"],
+            "laliga":["laliga","la liga"],
+        }
+        for key in db:
+            for en in db[key]:
+                if en in sentence.lower():
+                    return {
+                        'type':key,
+                        'value':en,
+                        'start':sentence.lower().find(en),
+                        'len':len(en)
+                    }
+        return None 
+    def excute(self,context):
+        if context.get("follow_node",None)  is not None:
+            return context.pop("follow_node").excute(context)
+        user_input = context.get("user_input")
+        champ = self.find_champ(user_input)
+        if champ is None:
+            repeat = context.get("repeat",0) 
+            if repeat >= 2:
+                context = FallBackNode("fallbacks RANKING node ask repeat > 2").excute(context) # fallback va save vao cbr
+                context['answer'] = "Xin lỗi bạn bot không hiểu câu hỏi. Lịch sử cuộc trò chuyện được lưu lại để phục vụ cho lần sau."
+                context.pop("follow_node",None)
+                return context
+            else:
+                context['answer'] = "Bạn vui lòng chọn giải:\nV-leaguage\nC1\nNgoại Hạng Anh\nlaliga"
+                context['repeat'] = context.get("repeat",0) + 1
+                context['follow_node'] = self
+                return context
+        else:
+            context.pop("repeat",None)
+            # update ranking
+            ranking = get_rank(db_ranking[champ['type']], path=champ['type']  + ".csv", cache=True).to_html() # limit call api ranking 
+            context['answer'] = ranking
+            context.pop("follow_node",None)
+            return context
 class FallBackNode(Node):
     def excute(self,context):
         if context.get("follow_node",None)  is not None:
@@ -168,34 +211,10 @@ class RuleNode(Node):
                     'node':self.name,
                     'value':context['answer']
                 })
-            context['previous_intent'] = 'tra cứu luât'
+            context['previous_intent'] = 'tra cứu luật'
             return context
         elif len(type_entities) == 0:
-            if context.get("repeat",0) >= 1 and context.get("repeat") <=2:
-                context['answer'] = 'Bạn vui lòng chọn đúng luật Option: \n' + """
-                1. Sân thi đấu
-                2. Yêu cầu về bóng
-                3. Trang phục
-                4. Thời gian thi đấu
-                5. Bàn thắng hợp lệ
-                6. Var
-                7. Việt vị
-                8. Hưởng lợi thế
-                9. Chèn cầu thủ
-                10. Dùng tay chơi bóng
-                11. Mừng bàn thắng
-                12. Câu giờ
-                13. Lỗi vi phạm với thủ môn
-                14. Lỗi vi phạm của thủ môn
-                15. đá phạt góc
-                16. ném biên
-                17. thẻ
-                18. hình thức xử phạt
-                19. Phạt trực tiếp
-                20. Phạt gián tiếp
-                21. fallbacks
-                """
-            elif context.get("repeat",0) == 0:
+            if context.get("repeat",0) == 0:
                 context['answer']  = f"Bạn muốn hỏi về luật nào nhỉ Option:\n" + """
                 1. Sân thi đấu
                 2. Yêu cầu về bóng
@@ -219,6 +238,32 @@ class RuleNode(Node):
                 20. Phạt gián tiếp
                 21. fallbacks
                 """
+            elif context.get("repeat",0) >= 1 and context.get("repeat") <=2:
+                context['previous_intent'] = 'tra cứu luật'
+                context['answer'] = 'Bạn vui lòng chọn đúng luật Option: \n' + """
+                1. Sân thi đấu
+                2. Yêu cầu về bóng
+                3. Trang phục
+                4. Thời gian thi đấu
+                5. Bàn thắng hợp lệ
+                6. Var
+                7. Việt vị
+                8. Hưởng lợi thế
+                9. Chèn cầu thủ
+                10. Dùng tay chơi bóng
+                11. Mừng bàn thắng
+                12. Câu giờ
+                13. Lỗi vi phạm với thủ môn
+                14. Lỗi vi phạm của thủ môn
+                15. đá phạt góc
+                16. ném biên
+                17. thẻ
+                18. hình thức xử phạt
+                19. Phạt trực tiếp
+                20. Phạt gián tiếp
+                21. fallbacks
+                """
+
             else:
                 context = FallBackNode("fallbacks choose option rule").excute(context)
                 context['answer'] = 'Xin lỗi chúng tôi không thể trả lời câu hỏi của bạn. Lịch sử cuộc trò chuyện đã được lưu lại để xem xét cho lần tư vấn tiếp theo'
@@ -226,6 +271,7 @@ class RuleNode(Node):
                 context.pop("follow_node",None)
                 context['previous_intent'] = 'tra cứu luật'
                 return context
+                
             context['previous_intent'] = 'tra cứu luật'
             context['repeat'] = context.get("repeat",0) + 1
             context['follow_node'] = self
@@ -561,47 +607,3 @@ class OptionActionNode(Node):
                     })
                     return context
         
-class RankingNode(Node):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-    def find_champ(self, sentence):
-        db = {
-            "vleage:2021":["trong nước" , "vleague","v1","v-leaguage"],
-            "nghanh":["ngoại hạng anh", "premier league","PRL","nha"],
-            "c1":["champions league","c1","châu âu"],
-            "laliga":["laliga","la liga"],
-        }
-        for key in db:
-            for en in db[key]:
-                if en in sentence.lower():
-                    return {
-                        'type':key,
-                        'value':en,
-                        'start':sentence.lower().find(en),
-                        'len':len(en)
-                    }
-        return None 
-    def excute(self,context):
-        if context.get("follow_node",None)  is not None:
-            return context.pop("follow_node").excute(context)
-        user_input = context.get("user_input")
-        champ = self.find_champ(user_input)
-        if champ is None:
-            repeat = context.get("repeat",0) 
-            if repeat >= 2:
-                context = FallBackNode("fallbacks RANKING node ask repeat > 2").excute(context) # fallback va save vao cbr
-                context['answer'] = "Xin lỗi bạn bot không hiểu câu hỏi. Lịch sử cuộc trò chuyện được lưu lại để phục vụ cho lần sau."
-                context.pop("follow_node",None)
-                return context
-            else:
-                context['answer'] = "Bạn vui lòng chọn giải:\nV-leaguage\nC1\nNgoại Hạng Anh\nlaliga"
-                context['repeat'] = context.get("repeat",0) + 1
-                context['follow_node'] = self
-                return context
-        else:
-            context.pop("repeat",None)
-            # update ranking
-            ranking = get_rank(db_ranking[champ['type']], path=champ['type']  + ".csv", cache=True).to_html() # limit call api ranking 
-            context['answer'] = ranking
-            context.pop("follow_node",None)
-            return context

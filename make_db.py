@@ -1,7 +1,7 @@
 import json
 
 
-
+#Dữ liệu về cầu thủ
 db={
     "Nguyễn Công Phượng":{
         "quê quán":"Đô Lương- Nghệ An",
@@ -257,7 +257,7 @@ Tổng cộng	24	3""",
 
 with open("person.json","w") as f:
     json.dump(db,f)
-
+# dữ liệu về tình huống
 db_context = {
     "Các tình huống việt vị":{
         "question":["Cầu thủ đang đứng trên toàn bộ đội bạn trừ thủ môn nhận đường truyền từ đông đội có bị việt vị không?",
@@ -303,7 +303,7 @@ db_context = {
 with open("action.json","w+") as f:
     json.dump(db_context,f)
 
-
+# Dữ liệu về luật 
 db = {
     'Sân thi đấu':{
     'text':"""
@@ -314,7 +314,7 @@ db = {
     Các cầu thủ phòng ngự phạm lỗi trong khu vực này sẽ bị thổi phạt penalty. Quả phạt sẽ được thực hiện trên chấm penalty. Nó được nằm ở giữa và cách khung thành 11m.
     Gần sát khung thành có một khung nhỏ hơn gọi là khu vực 5m50. Đây là nơi thực hiện những cú phát bóng lên. Ở 4 góc sân là 4 chấm phạt góc. Mặt sân bóng đá 11 người thường là cỏ tự nhiên hoặc cỏ nhân tạo. Chúng phải có màu xanh lá cây.
     """,
-    'img':"datasets/san1.jpg"
+
     },
     "Yêu cầu về bóng":{
         'text':"""
