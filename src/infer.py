@@ -11,7 +11,7 @@ class NaiveBayesNode(Node):
     def excute(self, context):
         if context.get("follow_node",None)  is not None:
             return context.pop("follow_node").excute(context)
-        if context.get("user_input").lower().strip() == 'fallbacks':
+        if 'fallbacks' in context.get("user_input").lower().strip():
             return FallBackNode('fallbacks').excute(context)
         history = context.get("history",[])
         user_inputs = context.get("user_input","")
@@ -21,8 +21,9 @@ class NaiveBayesNode(Node):
         value = predict(user_inputs)[0] #[{'p':'xác xuất của nhãn','value':nhãn predict ra, ' text':câu hỏi }]
         logging.info(f"Naive Bayess step return {value}")
 
-        if value.get('p') < 0.8 : # fallbacks
-            previous_intent = context.get("previous_intent",Node)
+        if value.get('p') < 0.7 : # fallbacks
+            previous_intent = context.get("previous_intent",None)
+            logging
             if previous_intent is None:
                 context['history'].append(
                     {
@@ -32,11 +33,14 @@ class NaiveBayesNode(Node):
                 )
                 redirect_node = FallBackNode('fallbacks')
             else:
-                if previous_intent == 'tra cứu luật':
+                if  previous_intent == 'tra cứu luật':
+                    context['previous_intent'] = 'tra cứu luât'
                     redirect_node = RuleNode('ruleNode')
                 elif previous_intent =='tình huống':
+                    context['previous_intent'] = 'tình huống'
                     redirect_node = ActionNode("action") 
                 elif previous_intent == 'tra cứu cầu thủ':
+                    context['previous_intent'] = 'tra cứu cầu thủ'
                     redirect_node = FindPerson("personNode")
                 else:
                     redirect_node = FallBackNode("fallback")
@@ -49,14 +53,19 @@ class NaiveBayesNode(Node):
                 }
             )
             if value['value'] == 'tra cứu luật':
+                context['previous_intent'] = 'tra cứu luât'
+                  
                 redirect_node = RuleNode('ruleNode')
             elif value['value'] == 'tình huống':
-                
+                context['previous_intent'] = 'tình huống'
                 redirect_node = ActionNode("action")
                 
             elif value['value'] == 'tra cứu cầu thủ':
+                context['previous_intent'] = 'tra cứu cầu thủ'
                 redirect_node = FindPerson('personNode')
                 #
+            elif value['value'] == 'kết thúc trò chuyện':
+                context['answer'] = "Hẹn gặp lại bạn sau nhé!"
         return redirect_node.excute(context)
 
 
@@ -111,15 +120,15 @@ class RuleNode(Node):
         entites_matched = []
         for entitie in entities:
             for value in entities[entitie]:
-                if value in sentence:
+                if value.lower() in sentence.lower():
                     entites_matched.append({
-                        'start':sentence.find(value),
+                        'start':sentence.lower().find(value.lower()),
                         'length':len(value) ,
                         'type':entitie
                     })
         return entites_matched
     def response(self, entiity_type):
-        return self.db[entiity_type]
+        return self.db[entiity_type]['text']
     def excute(self, context):
         if context.get("follow_node",None)  is not None:
             return context.pop("follow_node").excute(context)
@@ -130,11 +139,11 @@ class RuleNode(Node):
         # find rule 
 
         entites_matched = self.find_rule(user_input)
-        if len(entites_matched) == 0:
-            if context.get("previous_rule") is not None:
-                entites_matched.extend(context.get("previous_rule"))
-            # Nếu không tìm thâý lấu rule matched trước đó 
-                logging.info(f"use  old rule = {entites_matched}")
+        # if len(entites_matched) == 0:
+            # if context.get("previous_rule") is not None:
+            #     entites_matched.extend(context.get("previous_rule"))
+            # # Nếu không tìm thâý lấu rule matched trước đó 
+            #     logging.info(f"use  old rule = {entites_matched}")
 
         context['rule'] = entites_matched
         logging.info(f"find rule = {entites_matched}")
@@ -150,25 +159,25 @@ class RuleNode(Node):
             return context
         elif len(type_entities) == 0:
             context['answer']  = f"Bạn muốn hỏi về luật nào nhỉ Option:\n" + """
-            1. Sân thi đấu'
+            1. Sân thi đấu
             2. Yêu cầu về bóng
             3. Trang phục
-            4. Thời gian thi đấu'
-            5. Bàn thắng hợp lệ'
-            6. Var'
-            7. Việt vị"
+            4. Thời gian thi đấu
+            5. Bàn thắng hợp lệ
+            6. Var
+            7. Việt vị
             8. Hưởng lợi thế'
-            9. Chèn cầu thủ'
-            10. Dùng tay chơi bóng'
-            11. Mừng bàn thắng'
-            12. Câu giờ'
-            13. Lỗi vi phạm với thủ môn'
-            14. Lỗi vi phạm của thủ môn'
-            15. đá phạt góc'
-            16. ném biên'
-            17. thẻ'
-            18. hình thức xử phạt'
-            19. Phạt trực tiếp'
+            9. Chèn cầu thủ
+            10. Dùng tay chơi bóng
+            11. Mừng bàn thắng
+            12. Câu giờ
+            13. Lỗi vi phạm với thủ môn
+            14. Lỗi vi phạm của thủ môn
+            15. đá phạt góc
+            16. ném biên
+            17. thẻ
+            18. hình thức xử phạt
+            19. Phạt trực tiếp
             20. Phạt gián tiếp
             21. fallbacks
             """
@@ -264,7 +273,6 @@ class FindPerson(Node):
         entites_matched, entitie_matched_2 = self.find_person(user_input)
         logging.info(f"answer for {entites_matched} - {entitie_matched_2}")
         if len(entites_matched) == 1:
-            
             context['answer']   = self.response(entites_matched[0]['type'],entitie_matched_2)
             return context
         elif len(entites_matched) > 1:
@@ -276,8 +284,14 @@ class FindPerson(Node):
                 })
             return context
         else:
+            if context.get("just_find_entities",0) > 1 :
+                context = FallBackNode("fallbacksnode_find_person").excute(context) # save lai vao cbr
+                context['answer'] = f'Xin lỗi bạn hiện tại chúng tôi chưa cập nhật thông tin cầu thủ này !!!'
+                return context
+
             context['answer'] = f"Bạn muốn hỏi về cầu thủ nào nhỉ:\n"
             context['follow_node'] = self
+            context['just_find_entities']  = context.get("just_find_entities",0) + 1
             context['history'].append({
                     'node':self.name,
                     'value':context['answer']
@@ -304,8 +318,9 @@ class ActionNode(Node):
 
         iou = len(overlap_vocab) / (len(vocab_a) + len(vocab_b) - len(overlap_vocab))
 
-        if iou >= 0.5:return True 
+        if iou >= 0.8:return True 
         return False 
+
     def find_answer(self, query):
         for root_type in self.db:
             print(root_type)
@@ -350,10 +365,6 @@ class ActionNode(Node):
 
 class OptionActionNode(Node):
     def excute(self, context):
-
-
-
-
         if self.name == 'option 1':
             user_input = context.get("user_input","")   
 

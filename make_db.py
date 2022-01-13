@@ -302,3 +302,263 @@ db_context = {
 }
 with open("action.json","w+") as f:
     json.dump(db_context,f)
+
+
+db = {
+    'Sân thi đấu':{
+    'text':"""
+    Sân bóng đá là khoảng không gian hình chữ nhật nơi các cầu thủ thi đấu với nhau. Chúng có chiều dài là 105m và chiều rộng 68m. Hai đường giới hạn dài hơn theo chiều dọc gọi là đường biên dọc.
+    Hai đường ngắn hơn gọi là đường biên ngang. Đường thẳng kẻ suốt chiều ngang ở giữa chia sân thành 2 phần bằng nhau gọi là đường giữa sân.
+    Mỗi đội sẽ bảo vệ một nửa phần sân của mình và tấn công vào phần sân đối thủ. Một vòng tròn được kẻ vòng quanh có bán kính 9m15 gọi là vòng tròn trung tâm. Tại tâm điểm của sân bóng là điểm phát bóng giữa sân.
+    Ở giữa 2 đường đường biên ngang cuối 2 đầu sân là khu cầu môn. Đây là khu vực có khung thành với chiều ngang 7,32m và cao 2,44m. Bao quanh khung thành là vùng cấm địa hay còn gọi là khu vực 16m50. Đây là phạm vi thủ môn được dùng tay để bắt bóng.
+    Các cầu thủ phòng ngự phạm lỗi trong khu vực này sẽ bị thổi phạt penalty. Quả phạt sẽ được thực hiện trên chấm penalty. Nó được nằm ở giữa và cách khung thành 11m.
+    Gần sát khung thành có một khung nhỏ hơn gọi là khu vực 5m50. Đây là nơi thực hiện những cú phát bóng lên. Ở 4 góc sân là 4 chấm phạt góc. Mặt sân bóng đá 11 người thường là cỏ tự nhiên hoặc cỏ nhân tạo. Chúng phải có màu xanh lá cây.
+    """,
+    'img':"datasets/san1.jpg"
+    },
+    "Yêu cầu về bóng":{
+        'text':"""
+            Quả bóng đá phải có hình cầu và được làm bằng da hoặc một chất liệu tương đương. Nó gồm có 5 loại kích cỡ được đánh số từ 1 đến 5. Cỡ số 5 là bóng tiêu chuẩn được áp dụng trong các trận đấu chuyên nghiệp.
+            Cầu thủ từ 15 tuổi đều sử dụng loại bóng ở kích cỡ này. Bóng cỡ 5 có trọng lượng từ 410 đến 450 g. Chúng có chu vi từ 68 đến 70cm và được bơm căng ở áp suất từ 0,6 đến 1,1. Các kích thước bóng nhỏ hơn dành cho các giải đấu dành cho trẻ em tùy độ tuổi.
+        """
+    },
+    "Trang phục":{
+        "text":"""
+        Giày là trang bị bắt buộc đầu tiên mà mọi cầu thủ bóng đá phải có. Giày sử dụng trong bóng đá 11 người là giày đá bóng chuyên dụng. Cầu thủ cũng cần có vớ (tất) và một cặp bảo vệ ống chân. Phần với phải che phủ hoàn toàn phần bảo vệ ống chân.
+        Các cầu thủ trong một đội sẽ mặc đồng phục gồm quần ngắn, áo (ngắn tay hoặc dài tay). Thủ môn sẽ có một trang phục riêng để phân biệt với các cầu thủ còn lại trong đội. Trang phục của thủ môn cũng gồm quần áo (dài hoặc ngắn) và một đôi găng tay. Hai đội sẽ có màu trang phục khác nhau về màu sắc đáng kể để dễ phân biệt.
+        Trọng tài là người kiểm tra các vấn đề trang bị của cầu thủ. Nếu không đạt yêu cầu theo các quy định trên, bạn không thể ra sân thi đấu.
+        """
+    },
+    "Thời gian thi đấu":{
+        "text":"""
+        Một trận đấu bóng đá tiêu chuẩn sẽ có tổng cộng 90 phút thi đấu chính thức. Thời gian này được chia là 2 hiệp đấu với mỗi hiệp là 45 phút. Mỗi đội sẽ chơi ở một bên sân trong một hiệp rồi đổi bên ở hiệp còn lại.
+        Khoảng nghỉ giữa 2 hiệp là 15 phút. Đây là thời gian các cầu thủ nghỉ ngơi và nghe chỉ đạo của huấn luyện viên. Trận đấu thường bị gián đoạn do các cầu thủ chấn thương hay bóng ra ngoài biên. Khi đó trọng tài sẽ cộng thêm thời gian bù giờ sau khi hết 45 phút ở mỗi hiệp.
+        Trong một số trận đấu loại trực tiếp sẽ không chấp nhận kết quả hòa. Nếu trong 90 phút chính thức và bù giờ, các đội hòa nhau sẽ phải đá hiệp phụ. Hiệp phụ sẽ có tổng thời gian 30 phút và chia là 2 như trên. Tuy nhiên 2 đội sẽ đổi sân và thi đấu ngay sau mỗi hiệp phụ chứ không nghỉ.
+        """
+    },
+    "Bàn thắng hợp lệ":{
+        "text":"""
+        Bàn thắng hợp lệ là quả bóng nằm hoàn toàn bên trong vạch cầu môn theo luật bóng đá 11 người.
+        """
+    },
+    "Var":{
+        "text":"""
+            VAR (Video Assistant Referee) là công nghệ hỗ trợ trọng tài bằng video. Hiện tại, công nghệ này được sử dụng để hỗ trợ, giúp các trọng tài bóng đá nắm bắt tình hình trận đấu và đưa ra những quyết định chính xác nhất trong những trường hợp gây tranh cãi.
+            Những trường hợp được áp dụng VAR:
+            1. Bàn thắng gây tranh cãi
+            2. Penalties
+            3. Thẻ đỏ trực tiếp
+            4. Nhận diện những sai lầm trọng tài
+        """
+    },
+    "Việt vị":{
+        "text":"""
+            Việt vị là một lỗi thường xảy ra trong bóng đá khi một đội đang tấn công. Một cầu thủ sẽ bị thổi phạt việt vị nếu mắc cả lỗi việt vị. Lỗi này được quy định như sau:
+            Một cầu thủ sẽ rơi vào vị trí việt vị khi bất cứ bộ phận nào của cầu thủ này ở phần sân của đối phương và gần vạch cầu môn khung thành đối phương hơn cả bóng và cầu thủ phòng ngự thứ 2 (tính từ cầu môn) của đối phương. Cầu thủ đứng ở vị trí trên nhưng không tham gia tình huống tấn công không mắc lỗi việt vị.
+        """
+    },
+    "Hưởng lợi thế":{
+        "text":"""
+            Trong tình huống cần dừng trận đấu nếu xét thấy tiếp tục cho bóng động có lợi hơn cho đội bị phạm lỗi, trọng tài có quyền tiếp tục cho trận đấu diễn ra và tiến hành việc cảnh cáo cầu thủ phạm lỗi sau khi bóng chết, tình huống này được gọi là phép lợi thế. 
+        """
+    },
+    "chèn cầu thủ":{
+        "text":"""
+            Cách tì đè trong bóng đá đúng luật và không vi phạm luật tì đè trong bóng đá thì cầu thủ chỉ được sử dụng phần vai, ngực và chân để tì đè cầu thủ đối phương. Nếu sử dụng tay để tì đè sẽ gây ra các tình huống phạm lỗi và bị trọng tài thổi phạt.
+            Ngoài ra các trường hợp tì đè trong trạng thái không bóng sẽ bị coi là phạm lỗi.
+        """
+    },
+    "Dùng tay chơi bóng":{
+        "text":"""
+            Dịch chuyển của tay hướng đến trái bóng (trái với việc bóng tìm đến tay).
+Khoảng cách giữa cầu thủ bị chạm tay và trái bóng (trong trường hợp bất ngờ).
+Vị trí của tay có thể được tính đến trong việc xác định lỗi.
+Dùng tay cầm bất kỳ đồ vật nào chạm vào bóng sẽ bị xác định phạm lỗi (đồ vật ở đây có thể là trang phục thi đấu, tấm bảo vệ ống đồng, vv…).
+Cầm bất kỳ đồ vật nào ném, tác động vào trái bóng cũng bị xác định phạm lỗi.
+Bên ngoài vòng cấm, thủ môn bị xác định lỗi dùng tay chơi bóng như bất kỳ cầu thủ nào khác. Trong vòng cấm, nếu thủ môn dùng tay khống chế bóng từ đường chuyền về của đồng đội, sẽ bị thổi phạt gián tiếp.
+Nếu cầu thủ vô tình bị bóng chạm vào tay thì sẽ không bị phạt thẻ còn cố ý trong tình huống nguy hiểm thì mực phạt sẽ càng nặng.
+Một số trường hợp bóng chạm tay thì chỉ bị thẻ vàng, còn với trường hợp gần cầu môn hay cản phá một cú sút bóng gần gôn thì sẽ bị thẻ đỏ. Trong một số giải bóng đá lớn cầu thủ còn có thể bị treo giò.
+Bên cạnh đó, FIFA cũng quy định một tình huống được xem là dùng tay chơi bóng nếu như các cầu thủ cố tình di chuyển bàn tay hay cánh tay về phía trái bóng và xác định theo khoảng cách giữa bóng và cầu thủ.
+
+Lỗi chạm tay trong vòng cấm:
+
+Trong trường hợp cầu thủ cố ý tránh bóng nhưng bóng vẫn chạm tay thì có thể bị phạt hoặc không. Nếu cố tình thì thẻ đỏ còn vô tình thì thẻ vàng.
+Ngoài ra, khi cầu thủ để bóng chạm tay ở ngoài vòng 16m50 thì đối phương được hưởng một quả đá phạt, còn ngoài 16m50 thì sẽ bị phạt penalty.
+Và đáng chú ý nhất là trường hợp: Ngay cả tình huống chạm tay không cố ý, nhưng dẫn đến bàn thắng, cũng bị xác định là phạm lỗi.
+Đối với thủ môn luật chỉ áp dụng ngoài vòng 16m50.
+        """
+    },
+    "Mừng bàn thắng":{
+        "text":"""
+        Một cầu thủ thể hiện niềm vui của mình khi ghi được bàn thắng là hoàn toàn đượcphép, tuy nhiên việc mừng bàn thắng cũng không được thể hiện một cách thái quá.
+        Việc mừng bàn thắng một cách hợp lý là hoàn toàn có thể cho phép, tuy nhiên Luật thi đấu không khuyến khích những màn trình diễn mừng bàn thắng quá rườm rà làm mất thời gian và trong những tình huống như thế này, trọng tài cần phải can thiệp.
+        Một cầu thủ phải bị cảnh cáo, nếu :
+            +>Theo nhận định của trọng tài, cầu thủ có những cử chỉ khiêu khích, nhạo báng, kích động.
+            +>Trèo lên hàng rào quanh sân để mừng bàn thắng.
+            +>Cởi áo hoặc trùm áo qua đầu.
+            +>Trùm đầu hoặc mặt bằng mặt nạ hoặc vật tương tự.
+        Việc cầu thủ rời sân thi đấu để mừng bàn thắng nói chung sẽ không bị cảnh cáo nhưng
+        cầu thủ đó phải quay trở lại sân thi đấu sớm nhất có thể
+        Các trọng tài nên có những cách thức nhằm hạn chế các hành động mừng bàn thắng và có những hướng xử lý thích hợp đối với từng tình huống cụ thể.
+        """
+    },
+    "Câu giờ":{
+        "text":"""
+        Câu giờ là một lỗi trong bóng đá. Cầu thủ sẽ thực hiện các thủ thuật hoặc những hành động như cố tình nằm sân, khiêng cáng chậm chạp, thủ môn chần chừ mãi không sút bóng, cố tình chậm chạp thực hiện cấc quả phạt đền, cố tình không đưa bóng vào cuộc để kéo dài thời gian,...
+        """
+    },
+    "Lỗi vi phạm với thủ môn":{
+        "text":"""
+            1. Cầu thủ ngăn cản thủ môn thả bóng rời tay sẽ bị coi là phạm lỗi.
+            2. Cầu thủ phải bị phạt do chơi bóng nguy hiểm nếu cầu thủ này đá bóng hoặc cố tìm
+            cách đá bóng khi thủ môn đang thả bóng.
+            3. Cầu thủ cản trở sự di chuyển của thủ môn sẽ bị coi là phạm lỗi, ví dụ: trong tình huống thực hiện quả phạt góc.
+        """
+    },
+    "Lỗi vi phạm của thủ môn":{
+        "text":"""
+        1. Thủ môn không được phép giữ bóng bằng tay lâu quá 6 giây. Thủ môn được coi là giữ bóng nếu:
+            - Khi bóng đang ở giữa hai tay hoặc giữa tay với bất cứ bề mặt nào (ví dụ: mặt sân, cơ thể).
+            - Khi giang rộng cánh tay để giữ bóng.
+            - Khi đập bóng trên mặt đất hoặc tung bóng lên không trung.
+        Khi thủ môn đã kiểm soát bóng trong tay, cầu thủ đối phương không được phép tranh bóng.
+        2. Thủ môn không được dùng tay chạm bóng trong khu phạt đền của mình trong các tình huống cụ thể sau:
+            - Nếu dùng tay chạm lại bóng sau khi đã thả bóng và bóng chưa chạm bất cứ cầu thủ nào khác:
+                + Thủ môn được coi là giữ bóng nếu dùng bất cứ phần nào thuộc cánh tay hoặc bàn tay chạm bóng, trừ trường hợp anh ta không thể bắt dính bóng, ví dụ: sau khi anh ta vừa cứu bóng.
+                + Giữ bóng bao gồm cả việc thủ môn cố tình chỉ đỡ bóng mà không bắt bóng.
+            - Nếu thủ môn dùng tay chạm bóng từ quả đá về có chủ ý từ đồng đội của mình.
+            - Nếu thủ môn dùng tay chạm bóng sau khi trực tiếp nhận bóng từ một cú ném biên của đồng đội mình.
+        """
+    },
+    "đá phạt góc":{
+        "text":"""
+        Quả phạt góc là một hình thức bắt đầu lại trận đấu.
+        Quả phạt góc được thực hiện khi bóng hoàn toàn vượt ra khỏi đường biên ngang, dù là trên
+        mặt đất hay không, do cầu thủ của đội phòng ngự chạm bóng lần cuối cùng, và không có bàn
+        thắng được công nhận theo Luật X.
+        Một bàn thắng có thể trực tiếp được ghi từ quả phạt góc, nhưng chỉ được tính khi bóng vào
+        cầu môn đối phương. 
+        """
+    },
+    "ném biên":{
+        "text":"""
+        Quả ném biên là một hình thức bắt đầu lại trận đấu.
+        Khi quả bóng đã hoàn toàn vượt ra khỏi đường biên dọc dù là ở mặt sân hay trên không, cầu
+        thủ của đội không chạm bóng cuối cùng sẽ được thực hiện quả ném biên.
+        Nếu bóng trực tiếp đi vào cầu môn từ quả ném biên, bàn thắng không được công nhận.
+        """
+    },
+    "thẻ":{
+        "text":"""
+        1. Thẻ vàng được sử dụng để cảnh cáo đối với cầu thủ đang thi đấu, cầu thủ dự bị,
+        hoặc cầu thủ đã được thay thế.
+        2. Thẻ đỏ được sử dụng để truất quyền thi đấu đối với cầu thủ đang thi đấu, cầu thủ
+        dự bị, hoặc cầu thủ đã được thay thế.
+        3. Thẻ vàng, thẻ đỏ chỉ được sử dụng đối với cầu thủ đang thi đấu, cầu thủ dự bị
+        hoặc cầu thủ đã được thay thế.
+        4. Trọng tài có quyền đưa ra các hình thức xử phạt kể từ khi bắt đầu vào sân cho đến
+        khi rời khỏi sân sau khi thổi còi kết thúc trận đấu.
+        5. Cầu thủ có hành vi vi phạm Luật thi đấu trong hoặc ngoài sân đấu đối với đối
+        phương, đồng đội, trọng tài, trợ lý trọng tài hay bất kỳ cá nhân nào khác sẽ bị xử phạt
+        theo đúng những quy định dưới đây.
+
+        Những lôi bị cảnh cáo:
+        1. Cầu thủ vi phạm một trong bảy lỗi sau đây sẽ bị cảnh cáo:
+            a. Có hành vi phi thể thao.
+            b. Có lời lẽ hoặc hành động phản đối lại quyết định của trọng tài.
+            c. Liên tục vi phạm Luật.
+            d. Trì hoãn hoặc cản trở việc bắt đầu lại trận đấu.
+            e. Không tuân thủ quy định về cự ly yêu cầu trong những quả phạt, phạt góc hoặc
+            ném biên.
+            f. Vào hoặc trở lại sân không được sự cho phép của trọng tài.
+            g. Tự ý rời khỏi sân không được trọng tài đồng ý.
+        2. Cầu thủ dự bị hoặc cầu thủ đã bị thay thế sẽ bị cảnh cáo nếu vi phạm một trong ba lỗi sau đây:
+            a. Có hành vi phi thể thao.
+            b. Có lời lẽ hoặc hành động phản đối quyết định của trọng tài.
+            c. Cản trở việc bắt đầu lại trận đấu.
+
+        Những lỗi bị truất quyền thi đấu:
+        Cầu thủ, cầu thủ dự bị hoặc cầu thủ đã bị thay thế vi phạm một trong bảy lỗi sau đây sẽ bị truất quyền thi đấu:
+            a. Phạm lỗi nghiêm trọng.
+            b. Có hành vi bạo lực.
+            c. Nhổ nước bọt vào đối phương hoặc bất kỳ người nào khác.
+            d. Ngăn cản một bàn thắng hoặc một cơ hội ghi bàn rõ ràng của đối phương bằng
+            cách cố tình chơi bóng bằng tay (không áp dụng đối với thủ môn trong khu phạt
+            đền của đội mình).
+            e. Ngăn cản một cơ hội ghi bàn rõ ràng của đối phương bằng hành động phạm lỗi sẽ
+            bị xử phạt quả phạt hoặc phạt đền.
+            f. Dùng lời lẽ, hành động xúc phạm, xỉ nhục hoặc lăng mạ.
+            g. Nhận thẻ vàng thứ 2 trong một trận đấu.
+        Cầu thủ, cầu thủ dự bị hoặc cầu thủ đã bị thay thế bị phạt thẻ đỏ phải rời khỏi khu vực kỹ
+        thuật, kể cả khu vực gần sân thi đấu
+        """
+    },
+    "hình thức xử phạt":{
+        "text":"""
+        Những lôi bị cảnh cáo:
+        1. Cầu thủ vi phạm một trong bảy lỗi sau đây sẽ bị cảnh cáo:
+            a. Có hành vi phi thể thao.
+            b. Có lời lẽ hoặc hành động phản đối lại quyết định của trọng tài.
+            c. Liên tục vi phạm Luật.
+            d. Trì hoãn hoặc cản trở việc bắt đầu lại trận đấu.
+            e. Không tuân thủ quy định về cự ly yêu cầu trong những quả phạt, phạt góc hoặc
+            ném biên.
+            f. Vào hoặc trở lại sân không được sự cho phép của trọng tài.
+            g. Tự ý rời khỏi sân không được trọng tài đồng ý.
+        2. Cầu thủ dự bị hoặc cầu thủ đã bị thay thế sẽ bị cảnh cáo nếu vi phạm một trong ba lỗi sau đây:
+            a. Có hành vi phi thể thao.
+            b. Có lời lẽ hoặc hành động phản đối quyết định của trọng tài.
+            c. Cản trở việc bắt đầu lại trận đấu.
+
+        Những lỗi bị truất quyền thi đấu:
+        Cầu thủ, cầu thủ dự bị hoặc cầu thủ đã bị thay thế vi phạm một trong bảy lỗi sau đây sẽ bị truất quyền thi đấu:
+            a. Phạm lỗi nghiêm trọng.
+            b. Có hành vi bạo lực.
+            c. Nhổ nước bọt vào đối phương hoặc bất kỳ người nào khác.
+            d. Ngăn cản một bàn thắng hoặc một cơ hội ghi bàn rõ ràng của đối phương bằng
+            cách cố tình chơi bóng bằng tay (không áp dụng đối với thủ môn trong khu phạt
+            đền của đội mình).
+            e. Ngăn cản một cơ hội ghi bàn rõ ràng của đối phương bằng hành động phạm lỗi sẽ
+            bị xử phạt quả phạt hoặc phạt đền.
+            f. Dùng lời lẽ, hành động xúc phạm, xỉ nhục hoặc lăng mạ.
+            g. Nhận thẻ vàng thứ 2 trong một trận đấu.
+        Cầu thủ, cầu thủ dự bị hoặc cầu thủ đã bị thay thế bị phạt thẻ đỏ phải rời khỏi khu vực kỹ
+        thuật, kể cả khu vực gần sân thi đấu
+        
+        """
+    },
+    "Phạt trực tiếp":{
+        "text":"""
+        Quả phạt trực tiếp: là quả đá phạt nếu bóng đi vào cầu môn đội nào đội đó sẽ bị tính thua thêm 1 bàn thắng.
+        Các lỗi thường gặp bị phạt trực tiếp:
+            - Chèn vào đối phương.
+            - Đá hay tìm cách đá đối phương.
+            - Đánh hay tìm cách đánh đối phương.
+            - Lôi kéo đối phương.
+            - Ngáng chân hay tìm cách ngáng đối phương.
+            - Nhổ nước bọt vào đối phương.
+            - Xoạc lấy bóng nhưng chạm đối phương trước rồi mới chạm bóng.
+            - Xô đẩy đối phương.
+            - Cố tình chơi bóng bằng tay.
+            - Nhảy vào đối phương.
+        """
+    },
+    "Phạt gián tiếp":{
+        "text":"""
+        Phạt gián tiếp: là quả đá phạt mà bàn thắng chỉ được công nhận nếu trước khi bóng vào cầu môn đã chạm một cầu thủ khác:
+            - Nếu một quả phạt gián tiếp, bóng trực tiếp vào cầu môn đối phương, đội đối phương được hưởng quả đá phát bóng.
+            - Nếu một quả phạt gián tiếp, bóng trực tiếp vào cầu môn đội đá phạt, đội đối phương được hưởng quả phạt góc.
+
+        Các lỗi thường gặp bị phạt gián tiếp:
+            - Thủ môn chạm hay bắt bóng trở lại sau khi bóng đã vào cuộc mà chưa chạm bất kỳ một cầu thủ khác
+            - Bắt bóng trực tiếp từ quả ném biên của đồng đội và đang có hành vi câu giờ
+            - Thả bóng lăn vào cuộc nhưng nhận bóng lại bằng tay
+            - Giữ bóng trong tay quá lâu, tối đa 6 giây và trước khi đưa bóng vào cuộc
+            - Dùng tay chạm bóng khi đồng đội đưa bóng về bằng chân.
+        """
+    }
+
+
+}
+with open("rule.json","w+") as f:
+    json.dump(db,f)
