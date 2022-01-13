@@ -102,6 +102,7 @@ def hard_code(prob,corpus_t):
     key_word_rule = ['luật',"quy định","nội quy"]
     key_word_per = ['person',"cầu thủ","người","cậu thủ"]
     key_word_ac  =['tình huống', "trường hợp"]
+    key_word_bxh = ["rank","bảng xếp hạng","bxh","top","cập nhật"]
     for t in key_word_rule:
         if t in corpus_t:
             prob[:,0] += 0.3
@@ -111,6 +112,9 @@ def hard_code(prob,corpus_t):
     for t in key_word_ac:
         if t in corpus_t:
             prob[:,1] += 0.3
+    for t in key_word_bxh:
+        if t in corpus_t:
+            prob[:,3] += 0.4
     prob = np.where(prob < 0.99, prob, 0.99)
     return prob
 def predict(corpus_t):

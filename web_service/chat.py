@@ -36,7 +36,7 @@ def index():
     db = get_db()
     if  request.method == 'GET':
         user_id = session.get('user_id',-1) # get user
-        context = context_user.get(user_id,init_context) # get context
+        context = copy.deepcopy(context_user.get(user_id,init_context)) # get context
         logging.info(context)
         
         return render_template('chat/main.html', context=context)
@@ -53,17 +53,28 @@ def index():
         logging.info(request.form)
 
 
-        if request.form.get("is_option","false") in "true":
+        # if request.form.get("is_option","false") in "true":
 
-            user_input = [i.strip() for i in user_input.replace("<br>","\n").replace("  "," ").split("\n")]
+        #     # user_input = [i.strip() for i in user_input.replace("<br>","\n").replace("  "," ").split("\n")]
 
-            list_option = request.form.get("list_option")
-
-            list_option = [i.strip().replace("<br>","\n") for i in list_option.replace("\n\n","\n").replace("  "," ").split("\n")]
-
-            print(list_option)
-            logging.info(context['follow_node'])
-            logging.info(context['user_input'])            
+        #     list_option = request.form.get("list_option")
+        #     a = list_option
+        #     list_option = [i.strip().replace("<br>","\n") for i in list_option.replace("\n\n","\n").replace("  "," ").split("\n")]
+        #     def compare(a,b):
+        #         if len(a) <= 1:return False
+        #         return a in b
+        #     print(list_option)
+        #     true_ = [compare(user_input, i) for i in list_option ]
+        #     logging.info(true_)
+        #     true_ = sum(true_)
+        #     if true_ == 0:
+        #         context.pop("follow_node",None)
+        #         context['answer']= "Vui lòng chọn đúng yêu cầu!"
+        #         return jsonify({'context':context,'is_option':True,'list_option':a})
+            
+        #     print(list_option)
+        #     logging.info(context['follow_node'])
+        #     logging.info(context['user_input'])            
 
         
         first_node  = NaiveBayesNode('first_node_naive_bayes', )
